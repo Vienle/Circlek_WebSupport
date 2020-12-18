@@ -1,5 +1,6 @@
 import Promotion from './components/it/promotion/Promotion'
 import Product from './components/it/product/Product'
+import MkeymapLayout from './layout/mkeymapLayout/MkeymapLayout'
 
 
 export const ADMIN_ROUTES = [
@@ -14,5 +15,11 @@ export const ADMIN_ROUTES = [
         path : "/it/product",
         exact : true,
         component: Product
+    },
+    {
+        name : "Mkeymap",
+        path : "/it/mkeymap",
+        exact : true,
+        component: MkeymapLayout
     }
 ];

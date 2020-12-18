@@ -3,19 +3,16 @@ import PropTypes from 'prop-types'
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
-import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
-import { NavLink  } from 'react-router-dom'
+import MenuList from '@material-ui/core/MenuList';
+import NavItem from './NavItem'
+import { MenuItems } from '../../../contants/MenuItems'
+import { Avatar,Box, Typography } from '@material-ui/core';
 
-const drawerWidth = 240;
+const drawerWidth = 180;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,13 +26,13 @@ const useStyles = makeStyles((theme) => ({
   },
   drawer: {
     width: drawerWidth,
-    zIndex : '-1',
     flexShrink: 0,
     whiteSpace: 'nowrap',
+    position: "relative",
+    zIndex : "1"
   },
   drawerOpen: {
     width: drawerWidth,
-    zIndex : '-1',
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -46,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    zIndex : '-1',
+    
     overflowX: 'hidden',
     width: theme.spacing(7) + 1,
     [theme.breakpoints.up('sm')]: {
@@ -61,10 +58,14 @@ const useStyles = makeStyles((theme) => ({
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
   },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
+  NavLink : {
+    textDecoration : 'none',
+    color :'initial'
   },
+  avatar : {
+    width : '100px',
+    height : '100px'
+  }
 }));
 
 
@@ -72,54 +73,84 @@ function SideBar(props) {
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(true);
-    
+    const renderItems = () => {
+      let xhtml = null;
+      xhtml = MenuItems.map(item => {
+          return <NavItem
+              href={item.href}
+              Icon={item.icon}
+              title={item.title}
+              key={item.title}
+              />
+      });
+      return xhtml;
+  };
+
     const handleDrawerClose = () => {
-      setOpen(false);
+      setOpen(!open);
     };
   
     return (
         <div>
             <Drawer
-        variant="permanent"
-        className={clsx(classes.drawer, {
-          [classes.drawerOpen]: open,
-          [classes.drawerClose]: !open,
-        })}
-        classes={{
-          paper: clsx({
-            [classes.drawerOpen]: open,
-            [classes.drawerClose]: !open,
-          }),
-        }}
-      >
+              variant="permanent"
+              className={clsx(classes.drawer, {
+                [classes.drawerOpen]: open,
+                [classes.drawerClose]: !open,
+              })}
+              classes={{
+                paper: clsx({
+                  [classes.drawerOpen]: open,
+                  [classes.drawerClose]: !open,
+                }),
+              }}
+            >
         <div className={classes.toolbar}>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </div>
         <Divider />
-        <List>
-        <NavLink to="/it/promotion">
-            <ListItem button>
-              adda
-            </ListItem>
-            </NavLink>
-            <NavLink to="/it/product">
-            <ListItem button >
-              adda
-            </ListItem>
-            </NavLink>
-            <NavLink to="/it/promotion">
-            <ListItem button >
-              adda
-            </ListItem>
-            </NavLink>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            </ListItem>
-          ))}
-        </List>
+        <Box
+          alignItems="center"
+          display="flex"
+          flexDirection="column"
+          p={2}
+        >
+          <Avatar 
+          alt="Remy Sharp" 
+          src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80" 
+          className={classes.avatar} />
+          <Typography
+          className={classes.name}
+          color="textPrimary"
+          variant="h5"
+          >
+            Vien Le
+          </Typography>
+          <Typography
+            color="textSecondary"
+            variant="body2"
+          >
+            IT Application Support
+          </Typography><Typography
+            color="textSecondary"
+            variant="body2"
+          >
+            And
+          </Typography>
+          <Typography
+            color="textSecondary"
+            variant="body2"
+          >
+            Developer Assistant
+          </Typography>
+          
+        </Box>
+        <Divider />
+        <MenuList>
+          {renderItems()}
+        </MenuList>
       </Drawer>
         </div>
     )

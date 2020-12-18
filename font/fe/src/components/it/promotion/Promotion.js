@@ -1,10 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import PromotionServer from './PromotionServer'
+import PromotionStore from './PromotionStore'
 
 function Promotion(props) {
     return (
         <div>
-            Promotion Component
+            <PromotionServer />
+            <br/>
+            <PromotionStore/>
         </div>
     )
 }
