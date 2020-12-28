@@ -1,17 +1,18 @@
 export const MenuItems = [
+    // {
+    //     href : '/it/promotion',
+    //     icon : '',
+    //     title : 'Promotion'
+    // },
     {
-        href : '/it/promotion',
-        icon : '',
-        title : 'Promotion'
-    },
-    {
-        href : '/it/product',
+        href : '/',
         icon : '',
         title : 'Product'
-    },
-    {
-        href : '/it/mkeymap',
-        icon : '',
-        title : 'Mkeymap'
     }
+    // },
+    // {
+    //     href : '/it/mkeymap',
+    //     icon : '',
+    //     title : 'Mkeymap'
+    // }
 ]

@@ -27,9 +27,11 @@ function DashBoard(props) {
         <div>
             {/* <Header/> */}
             <div className={classes.wrapContent}>
-                <SideBar/>
+                {/* <SideBar/>
+                   */}
                 <div className={classes.content}>
                     { children }
+                    
                 </div>
             </div>
             

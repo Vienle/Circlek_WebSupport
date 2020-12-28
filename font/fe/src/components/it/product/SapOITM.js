@@ -30,11 +30,11 @@ function createData(itemcode, barcode, validFor, createDate, updateDate,sellItem
   return { itemcode, barcode, validFor, createDate, updateDate,sellItem,dcItem,allowOrdDC };
 }
 
-const rows = [
-  createData('123456', 123456789123, 'Y', '2020-12-20', '2020-12-20','Y','N','N'),
-  createData('123456', 123456789123, 'Y', '2020-12-20', '2020-12-20','Y','N','N'),
-  createData('123456', 123456789123, 'Y', '2020-12-20', '2020-12-20','Y','N','N'),
-];
+// const rows = [
+//   createData('123456', 123456789123, 'Y', '2020-12-20', '2020-12-20','Y','N','N'),
+//   createData('123456', 123456789123, 'Y', '2020-12-20', '2020-12-20','Y','N','N'),
+//   createData('123456', 123456789123, 'Y', '2020-12-20', '2020-12-20','Y','N','N'),
+// ];
 
 const useStyles = makeStyles({
   table: {
@@ -42,9 +42,11 @@ const useStyles = makeStyles({
   },
 });
 
-export default function SapOITM() {
+export default function SapOITM(props) {
   const classes = useStyles();
-
+  const { products } = props;
+  const rows = products || [];
+  console.log('row data',rows);
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="customized table">
@@ -52,12 +54,12 @@ export default function SapOITM() {
           <TableRow>
             <StyledTableCell>ItemCode</StyledTableCell>
             <StyledTableCell align="center">BarCode</StyledTableCell>
+            <StyledTableCell align="center">Name</StyledTableCell>
             <StyledTableCell align="center">ValidFor</StyledTableCell>
             <StyledTableCell align="center">CreateDate</StyledTableCell>
             <StyledTableCell align="center">UpdateDate</StyledTableCell>
             <StyledTableCell align="center">SellItem</StyledTableCell>
             <StyledTableCell align="center">DCItem</StyledTableCell>
-            <StyledTableCell align="center">AllowOrDC</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -66,13 +68,13 @@ export default function SapOITM() {
               <StyledTableCell component="th" scope="row">
                 {row.itemcode}
               </StyledTableCell>
-              <StyledTableCell align="center">{row.barcode}</StyledTableCell>
-              <StyledTableCell align="center">{row.validFor}</StyledTableCell>
+              <StyledTableCell align="center">{row.barcodes}</StyledTableCell>
+              <StyledTableCell align="center">{row.name}</StyledTableCell>
+              <StyledTableCell align="center">{row.validfor}</StyledTableCell>
               <StyledTableCell align="center">{row.createDate}</StyledTableCell>
               <StyledTableCell align="center">{row.updateDate}</StyledTableCell>
               <StyledTableCell align="center">{row.sellItem}</StyledTableCell>
-              <StyledTableCell align="center">{row.dcItem}</StyledTableCell>
-              <StyledTableCell align="center">{row.allowOrdDC}</StyledTableCell>
+              <StyledTableCell align="center">{row.itemDC}</StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>

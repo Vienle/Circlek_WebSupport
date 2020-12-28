@@ -14,6 +14,7 @@ function AdminLayout(props) {
                 return(
                     <DashBoard>
                         <YourComponent {...routeProp}/>
+                        
                     </DashBoard>
                 )
             }}

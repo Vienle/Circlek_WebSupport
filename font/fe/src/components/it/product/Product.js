@@ -2,38 +2,28 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Paper from '@material-ui/core/Paper';
 import SapOITM   from './SapOITM'
-import ProductStore   from './store/Product'
-import Mprodplu   from './store/Mprodplu'
 import Grid from '@material-ui/core/Grid';
+import SearchData from './../../common/SearchData'
+import * as ProductAction from './../../../actions/Product'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux';
 
 function Product(props) {
+    const { creatorProductAction,listProduct } = props;
+    const { getByProdcutAndStores } = creatorProductAction;
+    console.log('listProduct',listProduct);
+    const dataSearch = (itemcodes,stores) => {
+        getByProdcutAndStores(itemcodes);
+    }
+
     return (
         <div>
             <Paper>
+            <SearchData dataSearch={dataSearch} isProduct="true"/>
             <Grid container spacing={2}>
-                <Grid item xs={6}><SapOITM/></Grid>
-                <Grid item xs={4}><ProductStore/></Grid>
-                <Grid item xs={2}><Mprodplu/></Grid>
-            </Grid>
-            <Grid container spacing={2}>
-                <Grid item xs={6}><SapOITM/></Grid>
-                <Grid item xs={4}><ProductStore/></Grid>
-                <Grid item xs={2}><Mprodplu/></Grid>
-            </Grid>
-            <Grid container spacing={2}>
-                <Grid item xs={6}><SapOITM/></Grid>
-                <Grid item xs={4}><ProductStore/></Grid>
-                <Grid item xs={2}><Mprodplu/></Grid>
-            </Grid>
-            <Grid container spacing={2}>
-                <Grid item xs={6}><SapOITM/></Grid>
-                <Grid item xs={4}><ProductStore/></Grid>
-                <Grid item xs={2}><Mprodplu/></Grid>
-            </Grid>
-            <Grid container spacing={2}>
-                <Grid item xs={6}><SapOITM/></Grid>
-                <Grid item xs={4}><ProductStore/></Grid>
-                <Grid item xs={2}><Mprodplu/></Grid>
+                <Grid item xs={8}><SapOITM
+                    products={listProduct}
+                /></Grid>
             </Grid>
             </Paper>
         </div>
@@ -41,8 +31,22 @@ function Product(props) {
 }
 
 Product.propTypes = {
-
+    creatorProductAction : PropTypes.shape({
+        getByProdcutAndStores : PropTypes.func,
+    })
 }
 
-export default Product
+const mapStateToProps = state => {
+    console.log(state)
+    return {
+      listProduct : state.product.ListProduct,
+    }
+  }
+const mapDispatchToProps = dispatch => {
+    return {
+        creatorProductAction : bindActionCreators(ProductAction,dispatch)
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Product)
 

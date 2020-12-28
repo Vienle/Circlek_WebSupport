@@ -1,10 +1,13 @@
-import React from 'react'
+import React,{useEffect } from 'react'
 import PropTypes from 'prop-types'
 import MkeymapStore from './MkeymapStore'
 import MkeymapServer from './MkeymapServer'
 import { makeStyles } from '@material-ui/core/styles';
 import Mprodplu   from './../product/store/Mprodplu'
 import SearchData from './../../common/SearchData'
+import {connect} from 'react-redux'
+import * as MkeymapAction from './../../../actions/Mkeymap'
+import { bindActionCreators } from 'redux';
 
 const useStyles = makeStyles((theme) => ({
     wrapMkeymapContent : {
@@ -33,6 +36,13 @@ const useStyles = makeStyles((theme) => ({
 
 function Mkeymap(props) {
     const classes = useStyles();
+    const { getAllMkeymap } = props;
+    const { getAll } = getAllMkeymap;
+       
+    useEffect(() => {
+        // getAll();
+       
+    })
     return (
         <div className={classes.wrapMkeymap}>
             <div className={classes.wrapMkeymapHeader}>
@@ -48,14 +58,27 @@ function Mkeymap(props) {
                 <div className={classes.wrapMplu}>
                     <Mprodplu/>
                 </div>
+                
+                <div>
+                </div>
+
+                
             </div>
         </div>
     )
 }
 
 Mkeymap.propTypes = {
-
+    getAllMkeymap : PropTypes.shape({
+        getAll : PropTypes.func,
+    })
 }
 
-export default Mkeymap
+const mapDispatchToProp = dispatch => {
+    return {
+        getAllMkeymap : bindActionCreators(MkeymapAction,dispatch)
+    }
+}
+
+export default connect(null,mapDispatchToProp)(Mkeymap)
 
