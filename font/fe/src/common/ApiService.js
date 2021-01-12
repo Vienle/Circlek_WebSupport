@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { toast } from 'react-toastify'
 
 class AxiosService {
   constructor() {
@@ -12,6 +13,8 @@ class AxiosService {
   }
 
   handleError(error) {
+    console.log('err',error)
+    toast.error(error);
     return Promise.reject(error);
   }
 

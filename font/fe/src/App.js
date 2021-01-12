@@ -4,6 +4,8 @@ import AdminLayout from './layout/admin/AdminLayout'
 import { ADMIN_ROUTES } from './routes'
 import configureStore from './configureStore/index'
 import { Provider } from 'react-redux'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const store = configureStore();
 
@@ -26,7 +28,7 @@ function App() {
       <div className="App">
       <Router>
         <CssBaseline/>
-        
+        <ToastContainer/>
         <Switch>
           {renderAdminLayout()}
         </Switch>
